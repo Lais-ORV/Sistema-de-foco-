@@ -1,60 +1,64 @@
 //Projeto Orientado a Objetos
 //Ele é a ponte entre o código e o sistema de arquivos:
-import java.io.File
+		
+    import java.io.File
 
 //Classe com parâmetro privado, imutável e que precisa de um arquivo:
-class FrasesA(private val Arquivo: String) {
+		
+    class FrasesA(private val Arquivo: String) {
 
-    //Função sem parâmetros que recebe uma String:
-    fun FraseAleatoria(): String {
+//Função sem parâmetros que recebe uma String:
+			
+         fun FraseAleatoria(): String {
 
-        //Cria um objeto que representa o arquivo cujo nome foi passado na variável Arquivo:
+      //Cria um objeto que representa o arquivo cujo nome foi passado na variável Arquivo:
         val arquivo = File(Arquivo)
 
         //Verifica se o arquivo existe (encerra a função caso não exista e exibe uma mensagem):
-        if (!arquivo.exists()) {
-            return "Arquivo frases.txt não encontrado"
+          if (!arquivo.exists()) {
+             return "Arquivo frases.txt não encontrado"
         }
 
         //Lê todas as linhas do arquivo e transforma em uma lista:
-        val frases = arquivo.readLines()
+          val frases = arquivo.readLines()
 
         //Verifica se a lista está vazia ou não:
-        return if (frases.isNotEmpty()) {
+          return if (frases.isNotEmpty()) {
 
             //Escolhe uma frase aleatória da lista:
-            frases.random()
+              frases.random()
 
         //Se o arquivo estiver vazio, retorna mensagem padrão:
-        } else {
-            "Sem frases cadastradas"
-        }
-    }
-}
+          } else {
+              "Sem frases cadastradas"
+         }
+       }
+     }
 
 //Classe com parâmetro privado, mutável e imutável:
-class TemporizadorPomodoro(
-    private var tempoFoco: Int,
-    private var tempoDescanso: Int,
-    private val Frases: FrasesA
-) {
+		
+    class TemporizadorPomodoro(
+        private var tempoFoco: Int,
+        private var tempoDescanso: Int,
+        private val Frases: FrasesA
+    ) {
 
-    private var Foco = true
+        private var Foco = true
 
-    fun iniciar() {
-        while (true) {
-            if (Foco) {
-                iniciarFoco()
-            } else {
-                iniciarDescanso()
-            }
+        fun iniciar() {
+             while (true) {
+                  if (Foco) {
+                      iniciarFoco()
+                  } else {
+                      iniciarDescanso()
+                  }
 
             //Inverte o valor:
-            Foco = !Foco
-        }
-    }
+                  Foco = !Foco
+                }
+              }
 
-    private fun iniciarFoco() {
+        private fun iniciarFoco() {
         println("\nFoco iniciado!")
         contarTempo(tempoFoco, "Foco")
     }
@@ -71,6 +75,8 @@ class TemporizadorPomodoro(
             frase
         )
     }
+
+//Temporizador:
 
     private fun contarTempo(tempo: Int, modo: String, frase: String? = null) {
 
@@ -96,22 +102,23 @@ class TemporizadorPomodoro(
             Thread.sleep(1000)
         }
         println()
+     }
     }
-}
 
 //Inicia o programa por aqui:
-fun main() {
+
+    fun main() {
 
     //Repõe as frases:
-    val trocar = FrasesA("frases.txt")
+       val trocar = FrasesA("frases.txt")
 
     //Objeto principal do sistema:
-    val pomodoro = TemporizadorPomodoro(
-        tempoFoco = 25 * 60,
-        tempoDescanso = 5 * 60,
-        Frases = trocar
-    )
+       val pomodoro = TemporizadorPomodoro(
+          tempoFoco = 25 * 60,
+          tempoDescanso = 5 * 60,
+          Frases = trocar
+       )
 
     //Inicia o prorama:
-    pomodoro.iniciar()
-}
+       pomodoro.iniciar()
+    }
